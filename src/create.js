@@ -66,14 +66,14 @@ function Create(game, model, tool) {
 			// var tween = game.add.tween(sledge.sprite).to({
 				// x : sledgePos + 400,
 			// }, 1500, Phaser.Easing.Linear.None, true);
-			Also the parcels
+////			Also the parcels
 			// sledge.parcels.forEach(function(parcel) {
 				// var xCurrent = parcel.sprite.x;
 				// var tween = game.add.tween(parcel.sprite).to({
 					// x : xCurrent + 400,
 				// }, 1500, Phaser.Easing.Linear.None, true).onComplete
 						// .add(function() {
-							Remove parcels which have been delivered
+	////						Remove parcels which have been delivered
 							// parcel.sprite.destroy();
 						// });
 			// });
@@ -85,7 +85,7 @@ function Create(game, model, tool) {
 		// };
 
 	// };
-	// var lines = [];
+	// 
 
 	// this.addLine = function(x1, y1, x2, y2) {
 		// x1 = tool.posCalc.xPos(x1);
@@ -98,12 +98,21 @@ function Create(game, model, tool) {
 	return function() {
 		// Fuction called after 'preload' to setup the game
 
-		game.stage.backgroundColor = '#1261c4';
+		var xSize = 500;
+		var ySize = xSize;
+		var xStart = (c.size.x - xSize) / 2;
+		var yStart = 100;
+		
+		// Init data model
+		model.createStartShape();
+		
+		game.stage.backgroundColor = c.color.backgound;
 		// lines.push(new Phaser.Line(100, 100, 600, 100));
 		// lines.push(new Phaser.Line(600, 100, 600, 600));
 		// lines.push(new Phaser.Line(600, 600, 100, 600));
 		// lines.push(new Phaser.Line(100, 600, 100, 100));
-		lines.push(new Phaser.Rectangle(100, 50, 400, 400));
+		var lines = [];
+		lines.push(new Phaser.Rectangle(xStart, yStart, xSize, ySize));
 		model.setLines(lines);
 		game.add.button(10,10,'uparrowon', function() {
 			switchAction(-1);

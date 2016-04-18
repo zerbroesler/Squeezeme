@@ -1,4 +1,9 @@
 var c = {
+	color : {
+		backgound : '#1261c4',
+		playarea : '#32d050'
+		
+	},
 	size : {
 		x : 1280,
 		y : 640
@@ -12,8 +17,14 @@ var c = {
 		y : 1280
 	},
 	grid : {
-		x : 5,
-		y : 5
+		x : 7,
+		y : 7
+	},
+	startshape : {
+		xs : 3,
+		ys : 3,
+		xe : 5,
+		ye : 5,
 	}
 
 };

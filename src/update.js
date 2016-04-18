@@ -143,7 +143,7 @@ function Update(game, model, tool) {
 		// Function called 60 times per second
 		var lines = model.getLines();
 		for(lineno=0;lineno<lines.length;lineno++){
-			game.debug.geom(lines[lineno]);
+			game.debug.geom(lines[lineno],c.color.playarea);
 		}
 	};
 
