@@ -3,59 +3,40 @@
  */
 function Create(game, model, tool) {
 
-	var newRect = function(xIn,yIn){
 
-		var xStart = c.playField.xStart;
-		var yStart = c.playField.yStart;
-		var xSize = c.playField.xSize / c.grid.x;
-		var ySize = c.playField.ySize / c.grid.y
-		xStart += xIn * xSize;
-		yStart += yIn * ySize;
-		return {
-			rect : new Phaser.Rectangle(xStart, yStart, xSize, ySize),
-			x : xIn,
-			y : yIn,
-			xCenter : xStart + xSize / 2,
-			yCenter : yStart + ySize / 2
-		}
-	};
-	
-	
-	var createRects = function(){
-		//creates the rectangles according to the model and constant data
-		var aShape = model.getShape();
-		var aRects = [];
-		
-		for(yPos = 0; yPos < c.grid.y; yPos++){
-			for(xPos = 0; xPos < c.grid.x; xPos++){
-				if(aShape[yPos][xPos]===1){
-					aRects.push(newRect(xPos,yPos));
-				}
-			}
-		}
-		return aRects;
-	}
-	
+
 	return function() {
 		// Fuction called after 'preload' to setup the game
 
 		
 		// Init data model
 		model.createStartShape();
-		model.setRects(createRects());
+		model.setRects(model.createRects());
 		
 		game.stage.backgroundColor = c.color.backgound;
 		var lines = [];
+		var xs=c.playField.xSize;
 		lines.push(new Phaser.Rectangle(c.playField.xStart, c.playField.yStart,
 										c.playField.xSize, c.playField.ySize));
 		model.setLines(lines);
-		game.add.button(10,10,'uparrowon', function() {
-			switchAction(-1);
+		game.add.button(100,100,'vertical', function() {
+			model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 3, c.playField.ySize / 1.5));
 		}, this);
+		game.add.button(100,250,'horizontal', function() {
+			model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 1.5, c.playField.ySize /3));
+		}, this);
+		game.add.button(100,400,'circle', function() {
+			model.setBrush(new Phaser.Circle(0, 0, c.playField.xSize / 3));
+		}, this);
+		// game.add.button(100,400,'tri1', function() {
+			// model.setBrush(new Phaser.Polygon([0 ,0 ,xs / 2 ,0 ,xs / 2,xs / 2]));
+		// }, this);
 		game.add.text(470,16,"Squeeze me in", { fill: '#ffffff',fontSize : 50 });
 		
-		model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 4, c.playField.ySize / 2));
+		model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 3, c.playField.ySize / 1.5));
 
+		model.setGoal()
+		
 	};
 
 }

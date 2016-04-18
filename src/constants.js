@@ -4,7 +4,8 @@ var c = {
 		playarea : '#32d050',
 		shape : '#d030e0',
 		shape2 : '#d03040',
-		brush : 'rgba(200,220,40,0.6)'
+		brush : 'rgba(200,220,40,0.6)',
+		goal : '#f01010'
 		
 	},
 	size : {

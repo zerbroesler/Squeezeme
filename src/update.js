@@ -2,6 +2,7 @@ function Update(game, model, tool) {
 
 	var controller = new Controller(model);
 	var down = false;
+	var won = false;
 
 
 	return function() {
@@ -22,8 +23,12 @@ function Update(game, model, tool) {
 
 		// Set brush position
 		var oBrush = model.getBrush();
-		oBrush.x = mx;
-		oBrush.y = my;
+		if(oBrush.centerOn!==undefined){
+			oBrush.centerOn(mx,my);
+		}else{
+			oBrush.x = mx;
+			oBrush.y = my;
+		}
 
 		// Check which fields of the shape are touched by the brush and will not be occupied
 		// in this step
@@ -68,16 +73,30 @@ function Update(game, model, tool) {
 			}
 			game.debug.geom(aRects[rectno].rect,color);
 		}
+
+		// Draw the goal
+		var oGoal = model.getGoal();
+		game.debug.geom(oGoal,c.color.goal,false);
+
 		
 		// Draw the brush
 		game.debug.geom(oBrush,c.color.brush);
+
 		
 		// Process mouse
-		if (game.input.mousePointer.isDown && down === false ){
+		if (game.input.mousePointer.isDown && down === false && won === false){
 			down = true;
 			// move all rects to the moving array
 			model.setMoving(aMoving);
 			model.move();
+			if(model.checkIfIn()===true){
+				won = true;
+				var but = game.add.button(900,250,'nextLevel', function() {
+					model.nextLevel();
+					won = false;
+					but.kill();
+				}, this);
+			}
 		}else{
 			down = false;
 		}

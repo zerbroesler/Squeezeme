@@ -5,17 +5,11 @@ function Loader(game) {
 
 	return function() {
 
-//		game.load.image('player', 'images/hello.png');
-//
-//		game.load.tilemap('minemap', 'src/mine.json', null,
-//				Phaser.Tilemap.TILED_JSON);
-//
-//		game.load.image('minetiles', 'images/mineTiles.png');
-//		game.load.image('watertiles', 'images/water.png');
-//		game.load.image('lavatiles', 'images/lava.png');
-
 		
-//		game.load.image('parcel','sprites/parcel.png');
+		game.load.image('horizontal','sprite/brushHozizontal.png');
+		game.load.image('vertical','sprite/brushVertical.png');
+		game.load.image('circle','sprite/circle.png');
+		game.load.image('nextLevel','sprite/nextLevel.png');
 		
 		// This sets a limit on the up-scale
 		game.scale.maxWidth = c.sizeMax.x;

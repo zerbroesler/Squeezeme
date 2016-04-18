@@ -6,6 +6,7 @@ function Model() {
 	var aRects = [];
 	var aMoving = [];
 	var oBrush = null;
+	var level = 0;
 	
 	this.getLines = function(){
 		return lines;
@@ -15,6 +16,36 @@ function Model() {
 	}
 	
 	// Model
+	var newRect = function(xIn,yIn){
+
+		var xStart = c.playField.xStart;
+		var yStart = c.playField.yStart;
+		var xSize = c.playField.xSize / c.grid.x;
+		var ySize = c.playField.ySize / c.grid.y
+		xStart += xIn * xSize;
+		yStart += yIn * ySize;
+		return {
+			rect : new Phaser.Rectangle(xStart, yStart, xSize, ySize),
+			x : xIn,
+			y : yIn,
+			xCenter : xStart + xSize / 2,
+			yCenter : yStart + ySize / 2
+		}
+	};	
+	this.createRects = function(){
+		//creates the rectangles according to the model and constant data
+		var aRects = [];
+		
+		for(yPos = 0; yPos < c.grid.y; yPos++){
+			for(xPos = 0; xPos < c.grid.x; xPos++){
+				if(aShape[yPos][xPos]===1){
+					aRects.push(newRect(xPos,yPos));
+				}
+			}
+		}
+		return aRects;
+	}
+	
 	this.createStartShape = function(){
 		// Initializes the model of the shape i.e. an rectangle within a play area
 		aShape = [];
@@ -166,4 +197,42 @@ function Model() {
 		return oBrush;
 	};
 	
+	this.setGoal = function(){
+		var xOffset = 200;
+		var yOffset = 80;
+		switch(level){
+			case 0:
+				xOffset = 200;
+				yOffset = 80;
+				oGoal = new Phaser.Rectangle(c.playField.xStart+xOffset, c.playField.yStart+yOffset,
+											 c.playField.xSize / 1.8, c.playField.ySize / 1.5);
+				break;
+			case 1:
+				xOffset = 40;
+				yOffset = 250;
+				oGoal = new Phaser.Rectangle(c.playField.xStart+xOffset, c.playField.yStart+yOffset,
+											 c.playField.xSize / 1.2, c.playField.ySize / 2.5);
+				break;
+		}
+	};
+	this.getGoal = function(){
+		return oGoal;
+	};
+	this.checkIfIn = function(){
+		// Checks if the shape is in the goal
+		// Check which parts are touched by the brush
+		for(rectno=0;rectno<aRects.length;rectno++){
+			if(!oGoal.contains(aRects[rectno].xCenter,aRects[rectno].yCenter)){
+				// At least one rect is outside
+				return false;
+			}
+		}
+		return true;
+	}
+	this.nextLevel = function(){
+		this.createStartShape();
+		this.setRects(this.createRects());
+		level++;
+		this.setGoal();
+	}
 };
