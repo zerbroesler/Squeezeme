@@ -95,24 +95,45 @@ function Create(game, model, tool) {
 		// lines.push(new Phaser.Line(x1, y1, x2, y2));
 	// };
 
+	var newRect = function(xIn,yIn){
+		
+		var xStart = c.playField.xStart;
+		var yStart = c.playField.yStart;
+		var xSize = c.playField.xSize / c.grid.x;
+		var ySize = c.playField.ySize / c.grid.y
+		xStart += xIn * xSize;
+		yStart += yIn * ySize;
+		return new Phaser.Rectangle(xStart, yStart, xSize, ySize);
+	};
+	
+	
+	var createRects = function(){
+		//creates the rectangles according to the model and constant data
+		var aShape = model.getShape();
+		var aRects = [];
+		
+		for(yPos = 0; yPos < c.grid.y; yPos++){
+			for(xPos = 0; xPos < c.grid.x; xPos++){
+				if(aShape[yPos][xPos]===1){
+					aRects.push(newRect(xPos,yPos));
+				}
+			}
+		}
+		return aRects;
+	}
+	
 	return function() {
 		// Fuction called after 'preload' to setup the game
 
-		var xSize = 500;
-		var ySize = xSize;
-		var xStart = (c.size.x - xSize) / 2;
-		var yStart = 100;
 		
 		// Init data model
 		model.createStartShape();
+		model.setRects(createRects());
 		
 		game.stage.backgroundColor = c.color.backgound;
-		// lines.push(new Phaser.Line(100, 100, 600, 100));
-		// lines.push(new Phaser.Line(600, 100, 600, 600));
-		// lines.push(new Phaser.Line(600, 600, 100, 600));
-		// lines.push(new Phaser.Line(100, 600, 100, 100));
 		var lines = [];
-		lines.push(new Phaser.Rectangle(xStart, yStart, xSize, ySize));
+		lines.push(new Phaser.Rectangle(c.playField.xStart, c.playField.yStart,
+										c.playField.xSize, c.playField.ySize));
 		model.setLines(lines);
 		game.add.button(10,10,'uparrowon', function() {
 			switchAction(-1);

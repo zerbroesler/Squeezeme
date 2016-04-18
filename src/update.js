@@ -141,10 +141,39 @@ function Update(game, model, tool) {
 
 	return function() {
 		// Function called 60 times per second
-		var lines = model.getLines();
+		var aRects = model.getRects();
+ 		var lines = model.getLines();
+
+
 		for(lineno=0;lineno<lines.length;lineno++){
 			game.debug.geom(lines[lineno],c.color.playarea);
+		} 
+		
+		// Find out where the mouse is
+        var mx = game.input.activePointer.worldX;
+        var my = game.input.activePointer.worldY;
+		var hoverrect = -1;
+
+		for(rectno=0;rectno<aRects.length;rectno++){
+			if(aRects[rectno].contains(mx,my)){
+				hoverrect = rectno;
+			}
 		}
+		
+		
+		
+		// Draw the shape
+		var aRects = model.getRects();
+		var color = c.color.shape;
+		for(rectno=0;rectno<aRects.length;rectno++){
+			if(rectno === hoverrect){
+				color = c.color.shape2;
+			}else{
+				color = c.color.shape;
+			}
+			game.debug.geom(aRects[rectno],color);
+		}
+		
 	};
 
 }

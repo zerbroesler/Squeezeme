@@ -1,7 +1,9 @@
 var c = {
 	color : {
 		backgound : '#1261c4',
-		playarea : '#32d050'
+		playarea : '#32d050',
+		shape : '#d030e0',
+		shape2 : '#d03040'
 		
 	},
 	size : {
@@ -21,10 +23,17 @@ var c = {
 		y : 7
 	},
 	startshape : {
-		xs : 3,
-		ys : 3,
-		xe : 5,
-		ye : 5,
+		xs : 3-1,  // Minus 1 because it starts at 0
+		ys : 3-1,
+		xe : 5-1,
+		ye : 5-1,
 	}
 
 };
+c.playField = {
+		xSize : 500,
+		ySize : 500,
+		xStart : (c.size.x - 500) / 2,
+		yStart : 100
+	};
+

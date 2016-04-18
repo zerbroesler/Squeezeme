@@ -5,7 +5,7 @@
 function init() {
 
 	// Initialize Phaser, and creates a game
-	var game = new Phaser.Game(c.size.x, c.size.y, Phaser.AUTO, 'game_div');
+	var game = new Phaser.Game(c.size.x, c.size.y, Phaser.AUTO, 'game_div',null,false,false);
 	var gameState = {};
 	var tool = {
 		events : {}
