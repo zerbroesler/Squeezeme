@@ -52,8 +52,9 @@ function Create(game, model, tool) {
 		game.add.button(10,10,'uparrowon', function() {
 			switchAction(-1);
 		}, this);
-		game.add.text(16,16,"Overlap", { fill: '#ffffff' });
+		game.add.text(470,16,"Squeeze me in", { fill: '#ffffff',fontSize : 50 });
 		
+		model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 4, c.playField.ySize / 2));
 
 	};
 

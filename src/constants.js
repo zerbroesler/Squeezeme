@@ -3,7 +3,8 @@ var c = {
 		backgound : '#1261c4',
 		playarea : '#32d050',
 		shape : '#d030e0',
-		shape2 : '#d03040'
+		shape2 : '#d03040',
+		brush : 'rgba(200,220,40,0.6)'
 		
 	},
 	size : {

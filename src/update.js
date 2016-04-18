@@ -40,6 +40,12 @@ function Update(game, model, tool) {
 			game.debug.geom(aRects[rectno].rect,color);
 		}
 		
+		// Draw the brush
+		var oBrush = model.getBrush();
+		oBrush.x = mx;
+		oBrush.y = my;
+		game.debug.geom(oBrush,c.color.brush);
+		
 		// Process mouse
 		if (hoverrect !== -1 && game.input.mousePointer.isDown){
 			// move all rects to the moving array

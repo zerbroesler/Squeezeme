@@ -5,6 +5,7 @@ function Model() {
 	var aShape = [];
 	var aRects = [];
 	var aMoving = [];
+	var oBrush = null;
 	
 	this.getLines = function(){
 		return lines;
@@ -121,8 +122,8 @@ function Model() {
 			oRect.xTarget = (target.x -  c.playField.xStart) / c.playField.xSize * c.grid.x;
 			oRect.yTarget = (target.y -  c.playField.yStart) / c.playField.ySize * c.grid.y;
 			// Round to grid
-			oRect.xTargetR = Math.round(oRect.xTarget);
-			oRect.yTargetR = Math.round(oRect.yTarget);
+			oRect.xTargetR = Math.floor(oRect.xTarget);
+			oRect.yTargetR = Math.floor(oRect.yTarget);
 		}
 		// Sort the rects by distance to center 
 		// Move the ones which are nearest to center first
@@ -157,5 +158,12 @@ function Model() {
 		};
 		cleanShape();
 	}
+	
+	this.setBrush = function(oBrushIn){
+		oBrush = oBrushIn;
+	};
+	this.getBrush = function(){
+		return oBrush;
+	};
 	
 };
