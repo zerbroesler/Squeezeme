@@ -4,6 +4,7 @@ function Model() {
 	var lines = [];
 	var aShape = [];
 	var aRects = [];
+	var aMoving = [];
 	
 	this.getLines = function(){
 		return lines;
@@ -39,6 +40,30 @@ function Model() {
 		// Phaser rects of the current shape
 		return aRects;
 	}
+	this.getRectCenter = function(){
+		var xCenter = 0;
+		var yCenter = 0;
+		var iRectCount = aRects.length;
+		for(rectno=0;rectno<iRectCount;rectno++){
+			var oRect = aRects[rectno];
+			xCenter += oRect.x;
+			yCenter += oRect.y;
+		}
+		xCenter /= iRectCount;
+		yCenter /= iRectCount;
+		
+		return {
+			x: xCenter,
+			y: yCenter
+		};
+	};
 	
+	this.setMoving  = function(aMovingIn){
+		aMoving = aMovingIn;
+	}
+	this.move  = function(){
+		aMoving[0].rect.x = 5;
+		aMoving[0].rect.y = 5;
+	}
 	
 };
