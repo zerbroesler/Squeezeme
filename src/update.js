@@ -42,16 +42,11 @@ function Update(game, model, tool) {
 		
 		// Process mouse
 		if (hoverrect !== -1 && game.input.mousePointer.isDown){
-			var oCenter = model.getRectCenter();
 			// move all rects to the moving array
 			var aMoving = [];
 			aMoving.push(oRectData);
 			model.setMoving(aMoving);
 			model.move();
-			
 		}
-
-		
 	};
-
 }

@@ -4,14 +4,20 @@
 function Create(game, model, tool) {
 
 	var newRect = function(xIn,yIn){
-		
+
 		var xStart = c.playField.xStart;
 		var yStart = c.playField.yStart;
 		var xSize = c.playField.xSize / c.grid.x;
 		var ySize = c.playField.ySize / c.grid.y
 		xStart += xIn * xSize;
 		yStart += yIn * ySize;
-		return new Phaser.Rectangle(xStart, yStart, xSize, ySize);
+		return {
+			rect : new Phaser.Rectangle(xStart, yStart, xSize, ySize),
+			x : xIn,
+			y : yIn,
+			xCenter : xStart + xSize / 2,
+			yCenter : yStart + ySize / 2
+		}
 	};
 	
 	
@@ -23,12 +29,7 @@ function Create(game, model, tool) {
 		for(yPos = 0; yPos < c.grid.y; yPos++){
 			for(xPos = 0; xPos < c.grid.x; xPos++){
 				if(aShape[yPos][xPos]===1){
-					aRects.push({
-						rect : newRect(xPos,yPos),
-						x : xPos,
-						y : yPos,
-						
-					});
+					aRects.push(newRect(xPos,yPos));
 				}
 			}
 		}
