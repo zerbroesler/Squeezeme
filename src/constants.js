@@ -20,14 +20,14 @@ var c = {
 		y : 1280
 	},
 	grid : {
-		x : 7,
-		y : 7
+		x : 50,
+		y : 50
 	},
 	startshape : {
-		xs : 3-1,  // Minus 1 because it starts at 0
-		ys : 3-1,
-		xe : 5-1,
-		ye : 5-1,
+		xs : 15-1,  // Minus 1 because it starts at 0
+		ys : 15-1,
+		xe : 35-1,
+		ye : 35-1,
 	}
 
 };

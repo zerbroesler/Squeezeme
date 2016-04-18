@@ -29,7 +29,7 @@ function Model() {
 			}
 		}
 	}
-	var cleanShape = function(){
+	this.cleanShape = function(){
 		// Sets all 2 values to 0
 		for(yPos = 0; yPos < c.grid.y; yPos++){
 			for(xPos = 0; xPos < c.grid.x; xPos++){
@@ -156,7 +156,7 @@ function Model() {
 			oRect.xCenter = xStart + xSize / 2,
 			oRect.yCenter = yStart + ySize / 2
 		};
-		cleanShape();
+		this.cleanShape();
 	}
 	
 	this.setBrush = function(oBrushIn){
