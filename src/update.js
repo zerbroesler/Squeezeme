@@ -94,7 +94,8 @@ function Update(game, model, tool) {
 
 		
 		// Draw the brush
-		game.debug.geom(oBrush,c.color.brush);
+		drawShape(oBrush,c.color.brush);
+//		game.debug.geom(oBrush,c.color.brush);
 
 		
 		// Process mouse
