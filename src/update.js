@@ -10,10 +10,15 @@ function Update(game, model, tool) {
 		var aRects = model.getRects();
  		var lines = model.getLines();
 		var aMoving = [];
+		var graphics = model.getGraphics();
+		graphics.clear();
 
 
 		for(lineno=0;lineno<lines.length;lineno++){
-			game.debug.geom(lines[lineno],c.color.playarea);
+			r=lines[lineno];
+			graphics.beginFill(c.color.playarea,1);
+			graphics.drawShape(r);
+			graphics.endFill();
 		} 
 		
 		// Find out where the mouse is
@@ -22,14 +27,25 @@ function Update(game, model, tool) {
 		var oRectData = null;
 
 		// Set brush position
-		var oBrush = model.getBrush();
-		if(oBrush.centerOn!==undefined){
-			oBrush.centerOn(mx,my);
+		var oBrush2 = model.getBrush();
+		if(oBrush2.centerOn!==undefined){
+			oBrush2.centerOn(mx,my);
 		}else{
-			oBrush.x = mx;
-			oBrush.y = my;
+			oBrush2.x = mx;
+			oBrush2.y = my;
+		}
+		var oBrush = oBrush2.clone();
+		if(oBrush.type === 12){
+			// transform to new position
+			var points = oBrush.points;
+			for(i=0;i<points.length;i++){
+				points[i].x += oBrush2.x-120;
+				points[i].y += oBrush2.y-120;
+			}
 		}
 
+		
+		
 		// Check which fields of the shape are touched by the brush and will not be occupied
 		// in this step
 		aMoving = [];
@@ -70,32 +86,23 @@ function Update(game, model, tool) {
 				color = c.color.shape2;
 			}else{
 				color = c.color.shape;
-			}
-			game.debug.geom(aRects[rectno].rect,color);
-		}
 
-		var drawShape = function(oGeom,color){
-			if(oGeom.type === 12){
-				var points = oGeom.points;
-				var length=points.length;
-				for(i=0;i<length;i++){
-					var p1=points[i];
-					var p2=points[(i+1)%length];
-					game.debug.geom(new Phaser.Line(p1.x, p1.y,p2.x,p2.y),color);
-				}
-			}else{
-				game.debug.geom(oGeom,color,false);
 			}
-		};
+			graphics.beginFill(color);
+			graphics.drawShape(aRects[rectno].rect);
+			graphics.endFill();
+		}
 		
 		// Draw the goal
 		var oGoal = model.getGoal();
-		drawShape(oGoal,c.color.goal);
+		graphics.lineStyle(1,c.color.goal,1);
+		graphics.drawShape(oGoal);
 
 		
 		// Draw the brush
-		drawShape(oBrush,c.color.brush);
-//		game.debug.geom(oBrush,c.color.brush);
+			graphics.beginFill(c.color.brush,0.6);
+			graphics.drawShape(oBrush);
+			graphics.endFill();
 
 		
 		// Process mouse

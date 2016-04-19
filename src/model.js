@@ -222,7 +222,7 @@ function Model() {
 			case 2:
 				xOffset += 50;
 				yOffset += 50;
-				oGoal = new Phaser.Polygon(xOffset, yOffset,xOffset+500, yOffset,xOffset+500, yOffset+400);
+				oGoal = new Phaser.Polygon(xOffset, yOffset,xOffset+400, yOffset,xOffset+400, yOffset+400,xOffset, yOffset);
 				break;
 		}
 	};

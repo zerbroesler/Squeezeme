@@ -1,11 +1,11 @@
 var c = {
 	color : {
 		backgound : '#1261c4',
-		playarea : '#32d050',
-		shape : '#d030e0',
-		shape2 : '#d03040',
-		brush : 'rgba(200,220,40,0.6)',
-		goal : '#f01010'
+		playarea : 0x32d050,
+		shape : 0xd030e0,
+		shape2 : 0xd03040,
+		brush : 0xc8d020,
+		goal : 0xf01010
 		
 	},
 	size : {

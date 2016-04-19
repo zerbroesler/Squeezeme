@@ -10,6 +10,9 @@ function Loader(game) {
 		game.load.image('vertical','sprite/brushVertical.png');
 		game.load.image('circle','sprite/circle.png');
 		game.load.image('tri1','sprite/tri1.png');
+		game.load.image('tri2','sprite/tri2.png');
+		game.load.image('tri3','sprite/tri3.png');
+		game.load.image('tri4','sprite/tri4.png');
 
 		game.load.image('nextLevel','sprite/nextLevel.png');
 		
