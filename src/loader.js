@@ -9,6 +9,8 @@ function Loader(game) {
 		game.load.image('horizontal','sprite/brushHozizontal.png');
 		game.load.image('vertical','sprite/brushVertical.png');
 		game.load.image('circle','sprite/circle.png');
+		game.load.image('tri1','sprite/tri1.png');
+
 		game.load.image('nextLevel','sprite/nextLevel.png');
 		
 		// This sets a limit on the up-scale

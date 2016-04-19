@@ -22,20 +22,20 @@ function Create(game, model, tool) {
 		game.add.button(100,100,'vertical', function() {
 			model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 3, c.playField.ySize / 1.5));
 		}, this);
-		game.add.button(100,250,'horizontal', function() {
+		game.add.button(100,233,'horizontal', function() {
 			model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 1.5, c.playField.ySize /3));
 		}, this);
-		game.add.button(100,400,'circle', function() {
+		game.add.button(100,366,'circle', function() {
 			model.setBrush(new Phaser.Circle(0, 0, c.playField.xSize / 3));
 		}, this);
-		// game.add.button(100,400,'tri1', function() {
-			// model.setBrush(new Phaser.Polygon([0 ,0 ,xs / 2 ,0 ,xs / 2,xs / 2]));
-		// }, this);
+		game.add.button(100,500,'tri1', function() {
+			model.setBrush(new Phaser.Polygon([0 ,0 ,xs / 2 ,0 ,xs / 2,xs / 2]));
+		}, this);
 		game.add.text(470,16,"Squeeze me in", { fill: '#ffffff',fontSize : 50 });
 		
 		model.setBrush(new Phaser.Rectangle(0, 0, c.playField.xSize / 3, c.playField.ySize / 1.5));
 
-		model.setGoal()
+		model.setGoal();
 		
 	};
 

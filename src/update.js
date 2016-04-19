@@ -74,9 +74,23 @@ function Update(game, model, tool) {
 			game.debug.geom(aRects[rectno].rect,color);
 		}
 
+		var drawShape = function(oGeom,color){
+			if(oGeom.type === 12){
+				var points = oGeom.points;
+				var length=points.length;
+				for(i=0;i<length;i++){
+					var p1=points[i];
+					var p2=points[(i+1)%length];
+					game.debug.geom(new Phaser.Line(p1.x, p1.y,p2.x,p2.y),color);
+				}
+			}else{
+				game.debug.geom(oGeom,color,false);
+			}
+		};
+		
 		// Draw the goal
 		var oGoal = model.getGoal();
-		game.debug.geom(oGoal,c.color.goal,false);
+		drawShape(oGoal,c.color.goal);
 
 		
 		// Draw the brush

@@ -6,7 +6,8 @@ function Model() {
 	var aRects = [];
 	var aMoving = [];
 	var oBrush = null;
-	var level = 0;
+	var oGraphics = null;
+	var level = 2;
 	
 	this.getLines = function(){
 		return lines;
@@ -196,22 +197,32 @@ function Model() {
 	this.getBrush = function(){
 		return oBrush;
 	};
-	
+	this.setGraphics = function(oGraphicsIn){
+		oGraphics = oGraphicsIn;
+	};
+	this.getGraphics = function(){
+		return oGraphics;
+	};
 	this.setGoal = function(){
-		var xOffset = 200;
-		var yOffset = 80;
+		var xOffset = c.playField.xStart;
+		var yOffset = c.playField.yStart;
 		switch(level){
 			case 0:
-				xOffset = 200;
-				yOffset = 80;
-				oGoal = new Phaser.Rectangle(c.playField.xStart+xOffset, c.playField.yStart+yOffset,
+				xOffset += 200;
+				yOffset += 80;
+				oGoal = new Phaser.Rectangle(xOffset, yOffset,
 											 c.playField.xSize / 1.8, c.playField.ySize / 1.5);
 				break;
 			case 1:
-				xOffset = 40;
-				yOffset = 250;
-				oGoal = new Phaser.Rectangle(c.playField.xStart+xOffset, c.playField.yStart+yOffset,
+				xOffset += 40;
+				yOffset += 250;
+				oGoal = new Phaser.Rectangle(xOffset, yOffset,
 											 c.playField.xSize / 1.2, c.playField.ySize / 2.5);
+				break;
+			case 2:
+				xOffset += 50;
+				yOffset += 50;
+				oGoal = new Phaser.Polygon(xOffset, yOffset,xOffset+500, yOffset,xOffset+500, yOffset+400);
 				break;
 		}
 	};
