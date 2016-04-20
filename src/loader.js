@@ -13,6 +13,8 @@ function Loader(game) {
 		game.load.image('tri2','sprite/tri2.png');
 		game.load.image('tri3','sprite/tri3.png');
 		game.load.image('tri4','sprite/tri4.png');
+		game.load.image('reset','sprite/reset.png');
+		game.load.image('wonGame','sprite/wonGame.png');
 
 		game.load.image('nextLevel','sprite/nextLevel.png');
 		

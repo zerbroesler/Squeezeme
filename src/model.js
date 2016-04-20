@@ -7,7 +7,7 @@ function Model() {
 	var aMoving = [];
 	var oBrush = null;
 	var oGraphics = null;
-	var level = 2;
+	var level = 0;
 	
 	this.getLines = function(){
 		return lines;
@@ -122,6 +122,7 @@ function Model() {
 				}
 			}
 		}
+		shuffle(aFree);
 		aFree.sort(function(a,b){
 			return a.d - b.d;
 		});
@@ -131,6 +132,24 @@ function Model() {
 	this.setMoving  = function(aMovingIn){
 		aMoving = aMovingIn;
 	}
+	function shuffle(array) {
+		var currentIndex = array.length, temporaryValue, randomIndex;
+
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+
+			// Pick a remaining element...
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+
+			// And swap it with the current element.
+			temporaryValue = array[currentIndex];
+			array[currentIndex] = array[randomIndex];
+			array[randomIndex] = temporaryValue;
+		}
+		return array;
+	}
+	
 	this.move  = function(){
 		// Fist see where the center is
 		var oCenter = this.getRectCenter();
@@ -148,8 +167,8 @@ function Model() {
 			oVector.l = Math.sqrt(oVector.x * oVector.x + oVector.y * oVector.y);
 			// move along the vector to the other side
 			var target = {
-				x: oRect.xCenter - 2 * oVector.x,
-				y: oRect.yCenter - 2 * oVector.y
+				x: oRect.xCenter - 1.8 * oVector.x,
+				y: oRect.yCenter - 1.8 * oVector.y
 			};
 			oRect.xTarget = (target.x -  c.playField.xStart) / c.playField.xSize * c.grid.x;
 			oRect.yTarget = (target.y -  c.playField.yStart) / c.playField.ySize * c.grid.y;
@@ -210,19 +229,34 @@ function Model() {
 			case 0:
 				xOffset += 200;
 				yOffset += 80;
-				oGoal = new Phaser.Rectangle(xOffset, yOffset,
-											 c.playField.xSize / 1.8, c.playField.ySize / 1.5);
+				oGoal = [new Phaser.Rectangle(xOffset, yOffset,
+											 c.playField.xSize / 1.8, c.playField.ySize / 1.5)];
 				break;
 			case 1:
 				xOffset += 40;
 				yOffset += 250;
-				oGoal = new Phaser.Rectangle(xOffset, yOffset,
-											 c.playField.xSize / 1.2, c.playField.ySize / 2.5);
+				oGoal = [new Phaser.Rectangle(xOffset, yOffset,
+											 c.playField.xSize / 1.2, c.playField.ySize / 2.5)];
 				break;
 			case 2:
 				xOffset += 50;
 				yOffset += 50;
-				oGoal = new Phaser.Polygon(xOffset, yOffset,xOffset+400, yOffset,xOffset+400, yOffset+400,xOffset, yOffset);
+				oGoal = [new Phaser.Polygon(xOffset, yOffset,xOffset+400, yOffset,xOffset+400, yOffset+400,xOffset, yOffset)];
+				break;
+			case 3:
+				xOffset += 80;
+				yOffset += 50;
+				oGoal = [new Phaser.Rectangle(xOffset, yOffset,c.playField.xSize / 4, c.playField.ySize / 1.3),
+						 new Phaser.Rectangle(xOffset+200, yOffset,c.playField.xSize / 4, c.playField.ySize / 1.3)];
+				break;
+			case 4:
+				xOffset += 50;
+				yOffset += 50;
+				oGoal = [new Phaser.Polygon(xOffset+250, yOffset,
+											xOffset+400, yOffset+150,
+											xOffset+150, yOffset+400,
+											xOffset+0,   yOffset+250,
+											xOffset+250, yOffset)];
 				break;
 		}
 	};
@@ -232,18 +266,38 @@ function Model() {
 	this.checkIfIn = function(){
 		// Checks if the shape is in the goal
 		// Check which parts are touched by the brush
+		var out=0;
+		var iGoals = oGoal.length;
 		for(rectno=0;rectno<aRects.length;rectno++){
-			if(!oGoal.contains(aRects[rectno].xCenter,aRects[rectno].yCenter)){
+			out=0;
+			for(i=0;i<iGoals;i++){			
+				if(!oGoal[i].contains(aRects[rectno].xCenter,aRects[rectno].yCenter)){
+					// outside of one of the goals
+					out++;
+				}
+			}
+			if(out>=iGoals){
 				// At least one rect is outside
 				return false;
 			}
 		}
 		return true;
-	}
+	};
+	this.getLevel = function(){
+		return level;
+	};
+	this.setLevel = function(iLevelIn){
+		level = iLevelIn;
+	};
 	this.nextLevel = function(){
 		this.createStartShape();
 		this.setRects(this.createRects());
 		level++;
 		this.setGoal();
-	}
+	};
+	this.resetLevel = function(){
+		this.createStartShape();
+		this.setRects(this.createRects());
+		this.setGoal();
+	};
 };

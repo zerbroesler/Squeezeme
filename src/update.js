@@ -94,16 +94,20 @@ function Update(game, model, tool) {
 		}
 		
 		// Draw the goal
-		var oGoal = model.getGoal();
-		graphics.lineStyle(1,c.color.goal,1);
-		graphics.drawShape(oGoal);
+		var aGoal = model.getGoal();
+		for(i=0;i<aGoal.length;i++){
+			graphics.lineStyle(1,c.color.goal,1);
+			graphics.drawShape(aGoal[i]);
+		}
 
 		
 		// Draw the brush
-			graphics.beginFill(c.color.brush,0.6);
-			graphics.drawShape(oBrush);
-			graphics.endFill();
-
+			if(won===false){
+				graphics.beginFill(c.color.brush,0.6);
+				graphics.drawShape(oBrush);
+				graphics.endFill();
+			}
+				
 		
 		// Process mouse
 		if (game.input.mousePointer.isDown && down === false && won === false){
@@ -113,11 +117,20 @@ function Update(game, model, tool) {
 			model.move();
 			if(model.checkIfIn()===true){
 				won = true;
-				var but = game.add.button(900,250,'nextLevel', function() {
-					model.nextLevel();
-					won = false;
-					but.kill();
-				}, this);
+				if(model.getLevel()===4){
+					var but = game.add.button(300,200,'wonGame', function() {
+						model.setLevel(0);
+						model.resetLevel();
+						won = false;
+						but.kill();
+					}, this);
+				}else{
+					var but = game.add.button(900,250,'nextLevel', function() {
+						model.nextLevel();
+						won = false;
+						but.kill();
+					}, this);
+				}
 			}
 		}else{
 			down = false;
